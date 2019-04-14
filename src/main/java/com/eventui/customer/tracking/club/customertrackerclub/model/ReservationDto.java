@@ -21,7 +21,7 @@ import java.util.List;
 public class ReservationDto implements Serializable {
 
     @JsonProperty("id")
-    private int id;
+    private String id;
 
     @JsonProperty("reservationNumber")
     private String reservationNumber;
@@ -57,11 +57,11 @@ public class ReservationDto implements Serializable {
         this.type = type;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

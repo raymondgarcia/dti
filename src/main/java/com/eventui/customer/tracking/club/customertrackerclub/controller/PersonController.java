@@ -37,7 +37,7 @@ public class PersonController {
     
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public PersonDto getCustomer(@Valid @NotNull @PathVariable("id") final int id) {
+    public PersonDto getCustomer(@Valid @NotNull @PathVariable("id") final String id) {
         return Optional.ofNullable(personService.findOne(id))
                 .orElseThrow(() ->new NotFoundException("No found"));
     }
@@ -50,7 +50,7 @@ public class PersonController {
     
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public PersonDto updateCustomer(@Valid @NotNull @PathVariable("id") final int id,
+    public PersonDto updateCustomer(@Valid @NotNull @PathVariable("id") final String id,
             @Valid @NotNull @RequestBody final PersonDto personDto) {
         return personService.update(personDto);
     }

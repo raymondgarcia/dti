@@ -5,17 +5,19 @@
  */
 package com.eventui.customer.tracking.club.customertrackerclub.service;
 
-import com.eventui.customer.tracking.club.customertrackerclub.dao.IGenericDao;
+import com.eventui.customer.tracking.club.customertrackerclub.dao.PersonRepository;
 import com.eventui.customer.tracking.club.customertrackerclub.entity.Person;
 import com.eventui.customer.tracking.club.customertrackerclub.model.PersonDto;
-import java.util.Collection;
-import java.util.Date;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
+import java.util.Date;
 
 /**
  *
@@ -24,27 +26,23 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class PersonService implements IGenericService<PersonDto> {
 
-    private IGenericDao<Person> dao;
+    @Autowired
+    private PersonRepository dao;
 
     private final MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
     
     private final MapperFacade mapper = mapperFactory.getMapperFacade();
 
-    @Autowired
-    public void setDao(IGenericDao<Person> daoToSet) {
-        dao = daoToSet;
-        dao.setClazz(Person.class);
-    }
-
     @Override
     @Transactional
-    public PersonDto findOne(int id) {
-        return mapper.map(dao.findOne(id), PersonDto.class);
+    public PersonDto findOne(String id) {
+        return mapper.map(dao.findById(id).get(), PersonDto.class);
     }
 
     @Override
     @Transactional
     public Collection<PersonDto> findAll() {
+        System.out.println(dao.findAll());
         return mapper.mapAsList(dao.findAll(), PersonDto.class);
     }
 
@@ -54,7 +52,8 @@ public class PersonService implements IGenericService<PersonDto> {
         Person person = mapper.map(entity, Person.class);
         person.setStatus(Person.Status.VALID);
         person.setDateStatus(new Date());
-        dao.create(person);
+        person.setId(ObjectId.get());
+        dao.save(person);
         return mapper.map(person, PersonDto.class);
     }
 
@@ -63,7 +62,7 @@ public class PersonService implements IGenericService<PersonDto> {
     public PersonDto update(PersonDto entity) {
         Person person = mapper.map(entity, Person.class);
         person.setDateStatus(new Date());
-        dao.update(person);
+        dao.save(person);
         return mapper.map(person, PersonDto.class);
     }
 
@@ -77,7 +76,7 @@ public class PersonService implements IGenericService<PersonDto> {
 
     @Override
     @Transactional
-    public void deleteById(int entityId) {
+    public void deleteById(String entityId) {
         dao.deleteById(entityId);
     }
 

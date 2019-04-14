@@ -6,17 +6,11 @@
 package com.eventui.customer.tracking.club.customertrackerclub.service;
 
 
-import com.eventui.customer.tracking.club.customertrackerclub.dao.IGenericDao;
-import com.eventui.customer.tracking.club.customertrackerclub.entity.Person;
-import com.eventui.customer.tracking.club.customertrackerclub.entity.Reservation;
 import com.eventui.customer.tracking.club.customertrackerclub.enums.Status;
 import com.eventui.customer.tracking.club.customertrackerclub.enums.Type;
 import com.eventui.customer.tracking.club.customertrackerclub.model.CommerceDto;
 import com.eventui.customer.tracking.club.customertrackerclub.model.PersonDto;
 import com.eventui.customer.tracking.club.customertrackerclub.model.ReservationDto;
-import java.util.Date;
-import java.util.UUID;
-import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,34 +18,25 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+import java.util.UUID;
+
 /**
  *
  * @author raymondgarcia
  */
 @Service
 public class RegistrationReservationServiceImp implements RegistrationReservationService {
-
-    @Autowired
-    private IGenericDao<Reservation> dao;
     
     @Autowired
     @Qualifier(value = "reservationService")
     IGenericService<ReservationDto> reservationService;
     
-    @Autowired
-    @Qualifier(value = "personService")
-    IGenericService<PersonDto> personService;
-
-    @Autowired
-    private IGenericDao<Person> persoDao;
-    
     private final MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
-   
-    private MapperFacade mapper = mapperFactory.getMapperFacade();
 
     @Transactional
     @Override
-    public ReservationDto addReservation(Integer sponsorId, Integer commerceId) {
+    public ReservationDto addReservation(String sponsorId, String commerceId) {
         ReservationDto reservation = new ReservationDto();
         reservation.setStatus(Status.VALID);
         reservation.setType(Type.GENERAL);
@@ -68,7 +53,7 @@ public class RegistrationReservationServiceImp implements RegistrationReservatio
     }
 
     @Override
-    public ReservationDto addReservationVip(Integer sponsorId, Integer commerceId) {
+    public ReservationDto addReservationVip(String sponsorId, String commerceId) {
         ReservationDto reservation = new ReservationDto();
         reservation.setStatus(Status.VALID);
         reservation.setType(Type.VIP);

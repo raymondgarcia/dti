@@ -6,16 +6,18 @@
 package com.eventui.customer.tracking.club.customertrackerclub.service;
 
 
-import com.eventui.customer.tracking.club.customertrackerclub.dao.IGenericDao;
+import com.eventui.customer.tracking.club.customertrackerclub.dao.InvitationRepository;
 import com.eventui.customer.tracking.club.customertrackerclub.entity.Invitation;
 import com.eventui.customer.tracking.club.customertrackerclub.model.InvitationDto;
-import java.util.Collection;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
 
 /**
  *
@@ -24,22 +26,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class InvitationService implements IGenericService<InvitationDto> {
 
-    private IGenericDao<Invitation> dao;
+    @Autowired
+    private InvitationRepository dao;
 
     private final MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
     private MapperFacade mapper = mapperFactory.getMapperFacade();
 
-    @Autowired
-    public void setDao(IGenericDao<Invitation> daoToSet) {
-        dao = daoToSet;
-        dao.setClazz(Invitation.class);
-    }
-
     @Override
     @Transactional
-    public InvitationDto findOne(int id) {
-        return mapper.map(dao.findOne(id), InvitationDto.class);
+    public InvitationDto findOne(String id) {
+        return mapper.map(dao.findById(id), InvitationDto.class);
     }
 
     @Override
@@ -52,7 +49,8 @@ public class InvitationService implements IGenericService<InvitationDto> {
     @Transactional
     public InvitationDto create(InvitationDto entity) {
         Invitation reservation = mapper.map(entity, Invitation.class);
-        dao.create(reservation);
+        reservation.setId(ObjectId.get());
+        dao.save(reservation);
         return mapper.map(reservation, InvitationDto.class);
     }
 
@@ -60,7 +58,7 @@ public class InvitationService implements IGenericService<InvitationDto> {
     @Transactional
     public InvitationDto update(InvitationDto entity) {
         Invitation reservation = mapper.map(entity, Invitation.class);
-        dao.update(reservation);
+        dao.save(reservation);
         return mapper.map(reservation, InvitationDto.class);
     }
 
@@ -74,7 +72,7 @@ public class InvitationService implements IGenericService<InvitationDto> {
 
     @Override
     @Transactional
-    public void deleteById(int entityId) {
+    public void deleteById(String entityId) {
         dao.deleteById(entityId);
     }
 

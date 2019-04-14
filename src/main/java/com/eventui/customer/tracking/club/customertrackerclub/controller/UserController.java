@@ -48,7 +48,7 @@ public class UserController {
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_USER')")
-    public UserDto getCustomer(@Valid @NotNull @PathVariable("id") final int id) {
+    public UserDto getCustomer(@Valid @NotNull @PathVariable("id") final String id) {
         return Optional.ofNullable(userService.findOne(id))
                 .orElseThrow(() ->new NotFoundException("No found"));
     }
@@ -63,7 +63,7 @@ public class UserController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_USER')")
-    public UserDto updateCustomer(@Valid @NotNull @PathVariable("id") final int id,
+    public UserDto updateCustomer(@Valid @NotNull @PathVariable("id") final String id,
             @Valid @NotNull @RequestBody final UserDto userDto) {
         return userService.update(userDto);
     }

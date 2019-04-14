@@ -19,7 +19,7 @@ import javax.validation.constraints.Pattern;
 public class PersonDto implements Serializable{
 
     @JsonProperty("id")
-    private int id;
+    private String id;
 
     @JsonProperty("name")
     private String name;
@@ -59,15 +59,15 @@ public class PersonDto implements Serializable{
         this.dateStatus = dateStatus;
     }
     
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
     
-    public PersonDto id(int id) {
+    public PersonDto id(String id) {
         this.id = id;
         return this;
     }

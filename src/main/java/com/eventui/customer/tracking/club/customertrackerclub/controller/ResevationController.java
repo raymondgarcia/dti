@@ -51,7 +51,7 @@ public class ResevationController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public ReservationDto gerReservation(@Valid @NotNull @PathVariable("id") final int id) {
+    public ReservationDto gerReservation(@Valid @NotNull @PathVariable("id") final String id) {
         return Optional.ofNullable(reservationService.findOne(id))
                  .orElseThrow(() ->new NotFoundException("No found"));
     }
@@ -64,14 +64,14 @@ public class ResevationController {
     
     @RequestMapping(value = "commerce/{commerceId}/sponsor/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public ReservationDto addReservation(@Valid @NotNull @PathVariable("commerceId") final Integer commerceId,
-            @Valid @NotNull @PathVariable("id") final Integer sponsorId) {
+    public ReservationDto addReservation(@Valid @NotNull @PathVariable("commerceId") final String commerceId,
+            @Valid @NotNull @PathVariable("id") final String sponsorId) {
         return registrationReservationService.addReservation(sponsorId, commerceId);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public ReservationDto updateReservation(@Valid @NotNull @PathVariable("id") final int id,
+    public ReservationDto updateReservation(@Valid @NotNull @PathVariable("id") final String id,
             @Valid @NotNull @RequestBody final ReservationDto reservationDto) {
         return reservationService.update(reservationDto);
     }

@@ -51,7 +51,7 @@ public class InvitationController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public InvitationDto getInvitation(@Valid @NotNull @PathVariable("id") final int id) {
+    public InvitationDto getInvitation(@Valid @NotNull @PathVariable("id") final String id) {
         return Optional.ofNullable(invitationServicie.findOne(id))
                 .orElseThrow(() ->new NotFoundException("No found"));
     }
@@ -71,7 +71,7 @@ public class InvitationController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public InvitationDto updateInvitation(@Valid @NotNull @PathVariable("id") final int id,
+    public InvitationDto updateInvitation(@Valid @NotNull @PathVariable("id") final String id,
             @Valid @NotNull @RequestBody final InvitationDto invitationDto) {
         return invitationServicie.update(invitationDto);
     }

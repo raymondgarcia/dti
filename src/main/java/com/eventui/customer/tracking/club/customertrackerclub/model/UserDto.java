@@ -14,16 +14,25 @@ import java.io.Serializable;
 public class UserDto implements Serializable {
     
     @JsonProperty("id")
-    private int id;
+    private String id;
+
+    @JsonProperty("username")
+    private String username;
 
     @JsonProperty("rol")
     private Roles rol;
 
-    @JsonProperty("person")
-    private Person person;
-    
-    @JsonProperty("username")
-    private String username;
+    @JsonProperty("dni")
+    private String dni;
+
+    @JsonProperty("name")
+    private String name;
+
+    @JsonProperty("surname")
+    private String surname;
+
+    @JsonProperty("birthDate")
+    private Date birthDate;
 
     @JsonProperty("password")
     private String password;
@@ -35,22 +44,22 @@ public class UserDto implements Serializable {
     @JsonProperty("status")
     private Status status;
 
+    @JsonProperty("resetToken")
+    private String resetToken;
+
+    @JsonProperty("email")
+    private String email;
+
     public UserDto() {
         super();
     }
 
-    public UserDto(Roles rol, Person person, String password) {
-        super();
-        this.rol = rol;
-        this.person = person;
-        this.password = password;
-    }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -60,14 +69,6 @@ public class UserDto implements Serializable {
 
     public void setRol(Roles rol) {
         this.rol = rol;
-    }
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
     }
 
     public String getPassword() {
@@ -94,6 +95,38 @@ public class UserDto implements Serializable {
         this.status = status;
     }
 
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -101,11 +134,20 @@ public class UserDto implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
-    
-    @Override
-    public String toString() {
-        return "User [id=" + id + ", rol=" + rol + ", person=" + person + ", password=" + password + ", date=" + date
-                + "]";
+
+    public String getResetToken() {
+        return resetToken;
     }
 
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

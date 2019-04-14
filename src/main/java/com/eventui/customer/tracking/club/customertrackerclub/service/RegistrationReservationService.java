@@ -12,6 +12,6 @@ import com.eventui.customer.tracking.club.customertrackerclub.model.ReservationD
  * @author raymondgarcia
  */
 public interface RegistrationReservationService {
-     public ReservationDto addReservation(Integer personId,Integer commerceId);
-     public ReservationDto addReservationVip(Integer personId,Integer commerceId);
+     public ReservationDto addReservation(String personId,String commerceId);
+     public ReservationDto addReservationVip(String personId,String commerceId);
 }

@@ -48,7 +48,7 @@ public class CommerceController {
     
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public CommerceDto getCommerce(@Valid @NotNull @PathVariable("id") final int id) {
+    public CommerceDto getCommerce(@Valid @NotNull @PathVariable("id") final String id) {
         return Optional.ofNullable(commerceService.findOne(id))
                 .orElseThrow(() ->new NotFoundException("No found"));
     }
@@ -61,7 +61,7 @@ public class CommerceController {
     
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public CommerceDto updateCommerce(@Valid @NotNull @PathVariable("id") final int id,
+    public CommerceDto updateCommerce(@Valid @NotNull @PathVariable("id") final String id,
             @Valid @NotNull @RequestBody final CommerceDto commerceDto) {
         commerceDto.setId(id);
         return commerceService.update(commerceDto);

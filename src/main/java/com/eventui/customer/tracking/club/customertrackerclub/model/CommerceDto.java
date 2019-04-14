@@ -17,7 +17,7 @@ import java.util.Date;
 public class CommerceDto implements Serializable {
 
     @JsonProperty("id")
-    private int id;
+    private String id;
 
     @JsonProperty("description")
     private String description;
@@ -35,11 +35,11 @@ public class CommerceDto implements Serializable {
     @JsonProperty("reference")
     private String reference;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -88,7 +88,7 @@ public class CommerceDto implements Serializable {
         return "CommerceDto{" + "id=" + id + ", description=" + description + ", status=" + status + ", date=" + date + ", location=" + location + ", reference=" + reference + '}';
     }
 
-    public CommerceDto id(Integer id) {
+    public CommerceDto id(String id) {
          this.id = id;
          return this;
     }

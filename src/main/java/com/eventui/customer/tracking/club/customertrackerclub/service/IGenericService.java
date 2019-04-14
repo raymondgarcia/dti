@@ -13,7 +13,7 @@ import java.util.Collection;
  * @param <T>
  */
 public interface IGenericService<T extends Serializable> {
-    T findOne(final int id);
+    T findOne(final String id);
 
     Collection<T> findAll();
 
@@ -23,6 +23,6 @@ public interface IGenericService<T extends Serializable> {
 
     T delete(final T entity);
 
-    void deleteById(final int entityId);
+    void deleteById(final String entityId);
 
 }

@@ -1,16 +1,14 @@
 package com.eventui.customer.tracking.club.customertrackerclub.entity;
 
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name="person")
+@Document(collection = "persons")
 public class Person implements Serializable{
 	
 	public enum Status {
@@ -19,9 +17,8 @@ public class Person implements Serializable{
 	
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
-	private int id;
+	private ObjectId id;
 		
 	@Column(name="name")
 	private String name;
@@ -60,12 +57,12 @@ public class Person implements Serializable{
 	}
 
 
-	public int getId() {
-		return id;
+	public String getId() {
+		return id.toHexString();
 	}
 
 
-	public void setId(int id) {
+	public void setId(ObjectId id) {
 		this.id = id;
 	}
 

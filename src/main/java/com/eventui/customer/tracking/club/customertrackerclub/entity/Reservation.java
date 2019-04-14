@@ -1,25 +1,20 @@
 package com.eventui.customer.tracking.club.customertrackerclub.entity;
 
 import com.eventui.customer.tracking.club.customertrackerclub.enums.Type;
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-import javax.persistence.CascadeType;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
-@Entity
-@Table(name = "reservation")
 public class Reservation implements Serializable {
 
     public enum Status {
@@ -27,9 +22,8 @@ public class Reservation implements Serializable {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private ObjectId id;
 
     @Column(name = "reservation_number")
     private String reservationNumber;
@@ -59,11 +53,11 @@ public class Reservation implements Serializable {
     )
     private List<Person> persons;
 
-    public int getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

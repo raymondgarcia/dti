@@ -1,21 +1,15 @@
 package com.eventui.customer.tracking.club.customertrackerclub.entity;
 
 import com.eventui.customer.tracking.club.customertrackerclub.enums.Roles;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.mongodb.core.mapping.Document;
+import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-import java.io.Serializable;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-
-@Entity
-@Table(name = "user")
+@Document(collection = "users")
 public class User implements Serializable {
 
     public enum Status {
@@ -23,46 +17,47 @@ public class User implements Serializable {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "iduser")
-    private int id;
+    private ObjectId id;
 
-    @Column(name = "rolId")
-    private Roles rol;
+    private String dni;
 
-    @JoinColumn(name = "personId")
-    @OneToOne
-    private Person person;
-
-    @Column(name = "password")
-    private String password;
-    
-    @Column(name = "username")
     private String username;
 
-    @Column(name = "date")
-    private Date date;
+    private String name;
 
-    @Column(name = "status")
+    private String surname;
+
+    private String email;
+
+    private String sex;
+
+    private Date birthDate;
+
+    private Roles rol;
+
+    private String password;
+
     private Status status;
+
+    private String resetToken;
+
+    @CreatedDate
+    private Date createdDate;
+
+    @LastModifiedDate
+    private Date lastModifiedDate;
 
     public User() {
         super();
     }
 
-    public User(String username, String password, Roles rol) {
-        this.rol = rol;
-        this.password = password;
-        this.username = username;
-    }
-
    
 
-    public int getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
@@ -74,14 +69,6 @@ public class User implements Serializable {
         this.rol = rol;
     }
 
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -90,12 +77,52 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Date getDate() {
-        return date;
+    public String getDni() {
+        return dni;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 
     public Status getStatus() {
@@ -114,11 +141,11 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    @Override
-    public String toString() {
-        return "User{" + "id=" + id + ", rol=" + rol + ", person=" + person + ", password=" + password + ", username=" + username + ", date=" + date + ", status=" + status + '}';
+    public String getResetToken() {
+        return resetToken;
     }
-    
-    
 
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
+    }
 }
